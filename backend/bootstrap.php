@@ -16,11 +16,7 @@ $app->withFacades();
 
 $app->withEloquent();
 
-$app->singleton(\Illuminate\Contracts\Debug\ExceptionHandler::class,function(){
-    $handler = new \Chatbox\Lumen\Exceptions\Handler();
-    // set your Reporters;
-    return $handler;
-});
+$app->register(\Chatbox\LumenApp\LumenAppServiceProvider::class);
 
 $app->register(\Chatbox\PageApp\PageAppServiceProvider::class);
 $app->register(\Chatbox\RestApp\RestApiServiceProvider::class);
