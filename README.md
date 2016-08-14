@@ -1,6 +1,16 @@
 # Lumen Applications Template 
 
+[![Latest Stable Version](https://poser.pugx.org/chatbox-inc/lumen/version)](https://packagist.org/packages/chatbox-inc/lumen)
+[![License](https://poser.pugx.org/chatbox-inc/lumen/license)](https://packagist.org/packages/chatbox-inc/lumen)
+[![composer.lock available](https://poser.pugx.org/chatbox-inc/lumen/composerlock)](https://packagist.org/packages/chatbox-inc/lumen)
+
+
+[![CircleCI](https://circleci.com/gh/chatbox-inc/lumen.svg?style=svg)](https://circleci.com/gh/chatbox-inc/lumen)
+
 [![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
+
+
+
 
 ````
 $ composer create-project chatbox-inc/lumen myProject dev-master --prefer-dist
