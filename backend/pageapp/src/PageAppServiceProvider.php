@@ -1,11 +1,13 @@
 <?php
 namespace Chatbox\PageApp;
 
-use Chatbox\Lumen\Providers\SessionServiceProvider;
-use Illuminate\Http\Request;
+use Illuminate\Session\SessionManager;
+use Illuminate\Session\SessionServiceProvider;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\View\FileViewFinder;
 use Illuminate\Session\Middleware\StartSession;
+use Illuminate\View\ViewServiceProvider;
+
 /**
  * Created by PhpStorm.
  * User: mkkn
@@ -16,30 +18,25 @@ class PageAppServiceProvider extends ServiceProvider
 {
     public function register()
     {
-        $this->app->extend('view.finder', function (FileViewFinder $finder) {
-            $finder->addLocation(__DIR__."/../views/");
-            return $finder;
-        });
-        $this->app->register(SessionServiceProvider::class);
-
-        // start session is terminable and it should be registered as global
-        $this->app->middleware([
-            StartSession::class
-        ]);
+        $this->app->configure("view");
+//        $this->app->extend('view.finder', function (FileViewFinder $finder) {
+//            $finder->addLocation();
+//            return $finder;
+//        });
+        $this->app->register(ViewServiceProvider::class);
 
         $app = $this->app;
-
-        $app->group([
-        ],function($router){
-            $router->get("/",function(Request $request){
-                $counter = $request->session()->get("counter",5);
-                $request->session()->put("counter",$counter+1);
-                return view("welcome",[
-                    "counter" => $counter
-                ]);
-            });
-        });
-
+        $session = new class($app)extends SessionServiceProvider{
+            public function register()
+            {
+                $this->app->extend("session",function($obj){
+                    $this->app->configure("session");
+                    return $obj;
+                });
+                $this->app->alias("session",SessionManager::class);
+                parent::register();
+            }
+        };
+        $this->app->register($session);
     }
-
 }

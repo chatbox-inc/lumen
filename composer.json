@@ -6,16 +6,16 @@
             "email": "mikakane2@gmail.com"
         }
     ],
-    "extra": {
-        "installer-paths": {
-            "backend/{$name}": ["chatbox-inc/lumen-providers"]
-        }
-    },
     "autoload":{
         "psr-4":{
             "Chatbox\\RestApp\\":"./backend/restapp/src/",
             "Chatbox\\PageApp\\":"./backend/pageapp/src/"
         }
+    },
+    "autoload-dev":{
+        "classmap":[
+            "./backend/specs/"
+        ]
     },
     "scripts":{
         "post-update-cmd": [
@@ -30,13 +30,12 @@
     },
     "require": {
         "laravel/lumen": "^5.2",
-        "chatbox-inc/lumen-providers": "dev-master",
-        "chatbox-inc/lumen-app": "dev-master",
-        "barryvdh/laravel-debugbar": "^2.2"
+        "barryvdh/laravel-debugbar": "^2.2",
+        "chatbox-inc/lumen-restapi": "dev-master",
+        "illuminate/session": "^5.3"
     },
     "require-dev": {
-        "peridot-php/peridot": "^1.18",
-        "chatbox-inc/peridot-lumen-plugin": "^1.0"
+        "peridot-php/peridot": "^1.18"
     },
     "config": {
         "preferred-install": {

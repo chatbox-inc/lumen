@@ -1,6 +1,7 @@
 <?php
 
-require_once __DIR__.'/../vendor/autoload.php';
+/** @var \Composer\Autoload\ClassLoader $composer */
+$composer = require_once __DIR__.'/../vendor/autoload.php';
 
 try {
     (new \Dotenv\Dotenv(__DIR__.'/../'))->load();
@@ -16,9 +17,12 @@ $app->withFacades();
 
 $app->withEloquent();
 
-$app->register(\Chatbox\LumenApp\LumenAppServiceProvider::class);
+$app->singleton(\Illuminate\Contracts\Debug\ExceptionHandler::class,\App\Exceptions\Handler::class);
 
 $app->register(\Chatbox\PageApp\PageAppServiceProvider::class);
 $app->register(\Chatbox\RestApp\RestApiServiceProvider::class);
+
+require __DIR__ . "/pageapp/router.php";
+require __DIR__ . "/restapp/router.php";
 
 return $app;
